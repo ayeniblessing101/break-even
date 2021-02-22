@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option go_package = "github.com/ayeniblessing101/calculate-break-even/breakeven";
+
+message Estimation {
+  double downPayment = 1;
+	double mortgageInterestRate = 2;
+	double propertyTax = 3;
+	double propertyTransferTax = 4;
+	int64 term = 5;
+}
+
+message Request {
+  Estimation e = 1;
+  double rent = 2;
+  double priceOfPotentialHouse = 3;
+  int64 loanTerm = 4;
+}
+
+message Response {
+  string result = 1;
+}
+
+service BreakEvenService {
+  rpc CalculateBreakEven(Request) returns (Response) {}
+}
