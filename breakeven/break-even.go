@@ -20,11 +20,11 @@ type estimation struct {
 	term int
 }
 
-func (e *estimation) calculateMortgageNeeded(priceOfPotentialHouse float64) float64 {
+func (e estimation) calculateMortgageNeeded(priceOfPotentialHouse float64) float64 {
 	return priceOfPotentialHouse - e.downPayment
 }
 
-func (e *estimation) calculateMortgagePayableMonthly(loanTerm int64, priceOfPotentialHouse float64) float64 {
+func (e estimation) calculateMortgagePayableMonthly(loanTerm int64, priceOfPotentialHouse float64) float64 {
 	principal := e.calculateMortgageNeeded(priceOfPotentialHouse)
 	monthlyInterestRate := (e.mortgageInterestRate)/12
 	n := float64(loanTerm * 12)
@@ -35,7 +35,7 @@ func (e *estimation) calculateMortgagePayableMonthly(loanTerm int64, priceOfPote
 		return monthlyMortgagePayment
 }
 
-func (e *estimation) calculateTotalCostToBuyForTheTerm(loanTerm int64, priceOfPotentialHouse float64) float64 {
+func (e estimation) calculateTotalCostToBuyForTheTerm(loanTerm int64, priceOfPotentialHouse float64) float64 {
 	monthlyMortgagePayment := e.calculateMortgagePayableMonthly(loanTerm, priceOfPotentialHouse)
 	termInMonths := e.term * 12
 
@@ -44,7 +44,7 @@ func (e *estimation) calculateTotalCostToBuyForTheTerm(loanTerm int64, priceOfPo
 	return (monthlyPayment * float64(termInMonths)) + e.downPayment
 }	
 
-func (e *estimation) calculateTotalCostToRentForTheTerm(rent float64) float64 {
+func (e estimation) calculateTotalCostToRentForTheTerm(rent float64) float64 {
 	termInMonths  := e.term * 12
 	securityDeposit := rent
 
